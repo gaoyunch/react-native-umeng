@@ -21,7 +21,7 @@
 
 - (NSDictionary *)constantsToExport {
     return @{
-        @"CHANNEL": @"",
+        @"CHANNEL": @"App Store",
     };
 }
 
