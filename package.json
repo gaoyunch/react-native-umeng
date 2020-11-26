@@ -1,6 +1,6 @@
 {
   "name": "react-native-umeng",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "集成友盟统计、推送、第三方分享与登录",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
