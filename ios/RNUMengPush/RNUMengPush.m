@@ -107,7 +107,7 @@ RCT_EXPORT_MODULE(RNUMengPush);
     // 普通推送
     else {
         NSDictionary *alertDict = apsDict[@"alert"];
-        if (alertDict) {
+        if (alertDict && [alertDict isKindOfClass:[NSDictionary class]]) {
             resultDict[@"notification"] = @{
                 @"title": alertDict[@"title"] ?: @"",
                 @"subTitle": alertDict[@"subtitle"] ?: @"",
