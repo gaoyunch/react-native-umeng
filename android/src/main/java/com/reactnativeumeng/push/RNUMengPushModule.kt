@@ -40,6 +40,7 @@ class RNUMengPushModule(private val reactContext: ReactApplicationContext) : Rea
         private var pushModule: RNUMengPushModule? = null
 
         private var isStarted = false
+        private var isStartPending = false
 
         // 初始化友盟推送
         @JvmStatic
@@ -110,6 +111,9 @@ class RNUMengPushModule(private val reactContext: ReactApplicationContext) : Rea
             pushAgent.register(object : IUmengRegisterCallback {
                 override fun onSuccess(token: String) {
                     deviceToken = token
+                    if (isStartPending) {
+                        pushModule?.start()
+                    }
                 }
 
                 override fun onFailure(code: String, msg: String) {
@@ -209,17 +213,20 @@ class RNUMengPushModule(private val reactContext: ReactApplicationContext) : Rea
         super.initialize()
         pushModule = this
         isStarted = false
+        isStartPending = false
     }
 
     override fun onCatalystInstanceDestroy() {
         super.onCatalystInstanceDestroy()
         pushModule = null
         isStarted = false
+        isStartPending = false
     }
 
     @ReactMethod
     fun start() {
         if (deviceToken.isEmpty()) {
+            isStartPending = false
             return
         }
         // 接收启动 app 的推送
@@ -233,6 +240,7 @@ class RNUMengPushModule(private val reactContext: ReactApplicationContext) : Rea
         }
         sendEvent("register", map)
         isStarted = true
+        isStartPending = false
     }
 
     @ReactMethod
