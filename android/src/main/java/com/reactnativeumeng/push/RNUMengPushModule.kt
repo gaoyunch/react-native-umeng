@@ -226,7 +226,7 @@ class RNUMengPushModule(private val reactContext: ReactApplicationContext) : Rea
     @ReactMethod
     fun start() {
         if (deviceToken.isEmpty()) {
-            isStartPending = false
+            isStartPending = true
             return
         }
         // 接收启动 app 的推送
